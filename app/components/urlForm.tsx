@@ -6,12 +6,14 @@ import addNewUrl from "@/lib/addNewUrl";
 export default function UrlForm({ onDataChange }: any ) {
     const [url, setUrl] = useState("")
     const [customText, setCustomText] = useState("")
+    const [domain, setDomain] = useState("")
 
     return (
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const newUrl = await addNewUrl(url, customText);
+                setDomain(window.location.origin)
+                const newUrl = await addNewUrl(url, customText, domain);
                 onDataChange([newUrl.new, ""]);
             } catch (error) {
                 const errorMessage = error.message || "Failed to shorten the URL";

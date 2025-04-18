@@ -5,12 +5,13 @@ import { NewURL } from "@/types";
 export default async function addNewUrl(
     url: string,
     customText: string,
+    domain: string
 ): Promise<NewURL> {
 
     const u = {
             original: url,
             short: customText,
-            new: `${process.env.BASE_URL}/${customText}`
+            new: `${domain}/${customText}`
     };
 
     const postsCollection = await getCollection(URL_COLLECTION);
