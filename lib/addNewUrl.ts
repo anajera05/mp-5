@@ -6,6 +6,7 @@ export default async function addNewUrl(
     url: string,
     customText: string,
 ): Promise<NewURL> {
+
     const u = {
             original: url,
             short: customText,
@@ -13,6 +14,11 @@ export default async function addNewUrl(
     };
 
     const postsCollection = await getCollection(URL_COLLECTION);
+    const existing = await postsCollection.findOne({ short: customText });
+    if (existing) {
+        throw new Error("That custom short link already exists. Try another one.");
+    }
+
     const res = await postsCollection.insertOne({ ...u });
 
     if (!res.acknowledged) {

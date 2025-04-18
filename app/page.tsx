@@ -1,10 +1,9 @@
 "use client"
 import { useState } from "react"
-import { NewURL } from "@/types"
 import addNewUrl from "@/lib/addNewUrl";
 
 
-export default function Home({append}: {append: (url: NewURL) => void}) {
+export default function Home() {
   const [url, setUrl] = useState("")
   const [customText, setCustomText] = useState("")
   const [shortUrl, setShortUrl] = useState("")
@@ -24,7 +23,7 @@ export default function Home({append}: {append: (url: NewURL) => void}) {
                 setError("");
               } catch (error: any) {
                 console.error(error);
-                setError("Failed to shorten the URL");
+                setError(error.message || "Failed to shorten the URL");
                 setShortUrl("");
               }
             }}>
@@ -37,9 +36,16 @@ export default function Home({append}: {append: (url: NewURL) => void}) {
               <p className="text-sm text-gray-600 ">https://mp-5.vercel.app/</p>
               <input type="text" id="customText" value={customText} required onChange={e => setCustomText(e.target.value)} className="flex-1 border px-3 py-2 rounded text-gray-600" />
             </div>
-              <button type="submit" className="text-2xl font-bold mb-2 text-black cursor-pointer"> Create Shortened Link! </button>
+              <div className="flex justify-center mt-4">
+                <button type="submit" className="text-2xl font-bold mb-2 text-black cursor-pointer text-center p-3"> Create Shortened Link! </button>
+              </div>
             </form>
-            {error && <div>{error}</div>}
+            {error && (
+                <div className="mt-4 text-red-600 text-center font-semibold">
+                  {error}
+                </div>
+            )}
+
             {shortUrl && (
                 <div className="mt-4 p-4 bg-gray-100 rounded text-center">
                   <p className="text-black font-semibold mb-1">Your shortened URL:</p>
