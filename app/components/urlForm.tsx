@@ -16,6 +16,7 @@ export default function UrlForm({ onDataChange }: any ) {
                 const newUrl = await addNewUrl(url, customText, domain);
                 onDataChange([newUrl.new, ""]);
             } catch (error) {
+                // @ts-ignore
                 const errorMessage = error.message || "Failed to shorten the URL";
                 onDataChange(["", errorMessage]);
             }
