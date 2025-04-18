@@ -2,8 +2,8 @@
 import { useState } from "react"
 import addNewUrl from "@/lib/addNewUrl";
 
-
-export default function UrlForm({ onDataChange }: any) {
+// eslint-disable @typescript-eslint/no-explicit-any
+export default function UrlForm({ onDataChange }: any ) {
     const [url, setUrl] = useState("")
     const [customText, setCustomText] = useState("")
 
