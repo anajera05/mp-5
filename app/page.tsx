@@ -21,13 +21,8 @@ export default function Home() {
                 const newUrl = await addNewUrl(url, customText);
                 setShortUrl(newUrl.new);
                 setError("");
-              } catch (error : unknown) {
-                if (error instanceof Error) {
-                  console.error(error);
+              } catch (error : any) {
                   setError(error.message || "Failed to shorten the URL");
-                } else {
-                  setError("An unexpected error occurred");
-                }
                 setShortUrl("");
               }
               }
