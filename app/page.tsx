@@ -21,12 +21,17 @@ export default function Home() {
                 const newUrl = await addNewUrl(url, customText);
                 setShortUrl(newUrl.new);
                 setError("");
-              } catch (error: any) {
-                console.error(error);
-                setError(error.message || "Failed to shorten the URL");
+              } catch (error : unknown) {
+                if (error instanceof Error) {
+                  console.error(error);
+                  setError(error.message || "Failed to shorten the URL");
+                } else {
+                  setError("An unexpected error occurred");
+                }
                 setShortUrl("");
               }
-            }}>
+              }
+            }>
 
             <h3 className="mb-2 text-black">Enter any URL to create a shorter, shareable link</h3>
             <label htmlFor="url" className="block mb-1 font-semibold text-black">URL</label>
