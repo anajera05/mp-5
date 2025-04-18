@@ -2,9 +2,15 @@ import { redirect, notFound } from "next/navigation";
 import getCollection, { URL_COLLECTION } from "@/db";
 import { NewURL } from "@/types";
 
-export default async function handleRedirect(short: string): Promise<NewURL | null> {
+type PageProps = {
+  params: {
+    short: string;
+  };
+};
+
+export default async function RedirectPage({ params }: PageProps) {
   const collection = await getCollection(URL_COLLECTION);
-  const result = await collection.findOne({ short });
+  const result = await collection.findOne({ short: params.short });
 
   if (!result) {
     notFound();
