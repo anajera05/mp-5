@@ -4,13 +4,13 @@ import { NewURL } from "@/types";
 
 type PageProps = {
   params: {
-    short: string;
+    location: string;
   };
 };
 
 export default async function RedirectPage({ params }: PageProps) {
   const collection = await getCollection(URL_COLLECTION);
-  const result = await collection.findOne({ short: params.short });
+  const result = await collection.findOne({ short: params.location });
 
   if (!result) {
     notFound();
