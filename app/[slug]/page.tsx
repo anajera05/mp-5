@@ -1,16 +1,17 @@
+"use server";
+
 import { redirect, notFound } from "next/navigation";
 import getCollection, { URL_COLLECTION } from "@/db";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
+type Params = Promise<{ slug: string }>
 
-export default async function RedirectPage({ params }: PageProps): Promise<void> {
-  const short = params.id;
+export default async function RedirectPage(props: {
+  params: Params
+}) {
+  const params = await props.params
+
   const collection = await getCollection(URL_COLLECTION);
-  const result = await collection.findOne({ short: short });
+  const result = await collection.findOne({ params });
 
   if (!result) {
     notFound();
