@@ -7,7 +7,7 @@ type PageProps = {
   };
 };
 
-export default async function RedirectPage({ params }: PageProps) {
+export default async function RedirectPage({ params }: PageProps): Promise<void> {
   const short = params.id;
   const collection = await getCollection(URL_COLLECTION);
   const result = await collection.findOne({ short: short });
